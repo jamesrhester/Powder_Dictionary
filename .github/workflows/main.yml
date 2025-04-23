@@ -69,16 +69,6 @@ jobs:
                 repository: COMCIFS/cif_core
                 path: cif_core
 
-      - name: Checkout multi block dictionary
-        uses: actions/checkout@v4
-        with:
-                repository: COMCIFS/MultiBlock_Dictionary
-                path: multi_block
-                sparse-checkout: multi_block_core.dic
-
-      - name: Move multi block to same directory
-        run: |
-                mv multi_block/multi_block_core.dic cif_core
       - name: Diagnostics
         run: |
             ls -a
@@ -102,6 +92,17 @@ jobs:
     steps:
         - name: checkout
           uses: actions/checkout@v4
+          
+        - name: Checkout multi block dictionary
+          uses: actions/checkout@v4
+          with:
+                repository: COMCIFS/MultiBlock_Dictionary
+                path: multi_block
+                sparse-checkout: multi_block_core.dic
+
+        - name: Move multi block to same directory
+          run: |
+                mv multi_block/multi_block_core.dic cif_core
 
         - name: check_ddlm
           uses: COMCIFS/dictionary_check_action@main
